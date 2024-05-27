@@ -1,12 +1,11 @@
 "use client";
 import * as React from "react";
-import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
+import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
@@ -19,47 +18,9 @@ import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { changeTheme } from "@/lib/features/theme";
-import Tooltip from '@mui/material/Tooltip';
-
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "100%",
-    },
-  },
-}));
+import Tooltip from "@mui/material/Tooltip";
+import * as Styled from "./navbar.styles";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 export default function Navbar() {
   const currentTheme = useAppSelector((state) => state.theme.mode);
@@ -166,7 +127,10 @@ export default function Navbar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <Tooltip title="Made by Anuj Singh | anujsingh.net" style={{ cursor: "pointer" }}>
+          <Tooltip
+            title="Made by Anuj Singh | anujsingh.net"
+            style={{ cursor: "pointer" }}
+          >
             <Typography
               variant="h6"
               noWrap
@@ -176,29 +140,24 @@ export default function Navbar() {
               BookTickets
             </Typography>
           </Tooltip>
-          <Search className="w-[40rem]" sx={{ display: { xs: "none", sm: "block" } }}>
-            <SearchIconWrapper>
+          <Styled.Search
+            className="w-[40rem]"
+            sx={{ display: { xs: "none", sm: "block" } }}
+          >
+            <Styled.SearchIconWrapper>
               <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
+            </Styled.SearchIconWrapper>
+            <Styled.StyledInputBase
               className="w-full"
               placeholder="Search for movies, events, etc."
               inputProps={{ "aria-label": "search" }}
             />
-          </Search>
+          </Styled.Search>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton
-              size="large"
-              color="inherit"
-              onClick={handleThemeChange}
-            >
-              {currentTheme === "dark" ? (
-                <Brightness7Icon />
-              ) : (
-                <Brightness4Icon />
-              )}
-            </IconButton>
+          <Box sx={{ display: { xs: "none", md: "flex" } }} className="mr-2">
+            <Styled.DivWrapper>
+              <Button variant="outlined">Bangalore &nbsp;<KeyboardArrowDownIcon/></Button>
+            </Styled.DivWrapper>
           </Box>
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton

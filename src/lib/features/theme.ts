@@ -11,7 +11,7 @@ enum Mode {
 }
 
 const initialState: ThemeState = {
-  mode: Mode.Dark,
+  mode: Mode.Light,
 };
 
 export const themeSlice = createSlice({
