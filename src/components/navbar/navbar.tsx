@@ -18,7 +18,8 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
-import { changeTheme } from "@/lib/features/theme/theme";
+import { changeTheme } from "@/lib/features/theme";
+import Tooltip from '@mui/material/Tooltip';
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -55,7 +56,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("md")]: {
-      width: "20ch",
+      width: "100%",
     },
   },
 }));
@@ -85,10 +86,6 @@ export default function Navbar() {
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
-  };
-
-  const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setMobileMoreAnchorEl(event.currentTarget);
   };
 
   const menuId = "primary-search-account-menu";
@@ -169,63 +166,28 @@ export default function Navbar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
-          >
-            MUI
-          </Typography>
-          <Search>
+          <Tooltip title="Made by Anuj Singh | anujsingh.net" style={{ cursor: "pointer" }}>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ display: { xs: "block", sm: "block" } }}
+            >
+              BookTickets
+            </Typography>
+          </Tooltip>
+          <Search className="w-[40rem]" sx={{ display: { xs: "none", sm: "block" } }}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search…"
+              className="w-full"
+              placeholder="Search for movies, events, etc."
               inputProps={{ "aria-label": "search" }}
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="inherit"
-            >
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
             <IconButton
               size="large"
               color="inherit"
@@ -238,18 +200,19 @@ export default function Navbar() {
               )}
             </IconButton>
           </Box>
-          {/* <Box sx={{ display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton
               size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
               color="inherit"
+              onClick={handleThemeChange}
             >
-              <MoreIcon />
+              {currentTheme === "dark" ? (
+                <Brightness7Icon />
+              ) : (
+                <Brightness4Icon />
+              )}
             </IconButton>
-          </Box> */}
+          </Box>
         </Toolbar>
       </AppBar>
       {renderMobileMenu}

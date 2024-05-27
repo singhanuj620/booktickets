@@ -2,7 +2,6 @@
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useAppSelector } from "@/lib/hooks";
-import rootLayout from "./rootLayout";
 
 export default function ThemeClient({
   children,
@@ -14,7 +13,7 @@ export default function ThemeClient({
     // components: {},
     palette: {
       // primary: {
-      //   main: "#1976d2",
+      //   main: currentTheme ? "#1976d2" : "#dc004e",
       // },
       // secondary: {
       //   main: "#dc004e",

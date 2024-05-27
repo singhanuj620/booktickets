@@ -1,9 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import themeReducer from "@/lib/features/theme/theme";
+import themeReducer from "@/lib/features/theme";
+import modalReducer from "@/lib/features/modal";
 
 export const makeStore = () => {
   return configureStore({
-    reducer: { theme: themeReducer },
+    reducer: {
+      theme: themeReducer,
+      modal: modalReducer,
+    },
   });
 };
 
