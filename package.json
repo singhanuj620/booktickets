@@ -20,6 +20,7 @@
     "@types/material-ui": "^0.21.17",
     "autoprefixer": "^10.4.19",
     "clsx": "^2.1.1",
+    "country-state-city": "^3.2.1",
     "express": "^4.19.2",
     "framer-motion": "^11.2.6",
     "graphql-tag": "^2.12.6",

@@ -22,6 +22,7 @@ export default function ThemeClient({
             background: {
               default: grey[900],
               paper: grey[900],
+              modal: "#ffffff"
             },
             text: {
               primary: grey[900],
@@ -35,6 +36,7 @@ export default function ThemeClient({
             background: {
               default: grey[900],
               paper: grey[900],
+              modal: grey[900]
             },
             text: {
               primary: "#fff",

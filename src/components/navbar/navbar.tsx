@@ -20,10 +20,15 @@ import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { changeTheme } from "@/lib/features/theme";
 import Tooltip from "@mui/material/Tooltip";
 import * as Styled from "./navbar.styles";
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import BasicModal from "../modal/modal";
+import { toggleModal } from "@/lib/features/modal";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
 
 export default function Navbar() {
   const currentTheme = useAppSelector((state) => state.theme.mode);
+  const isModalOpen = useAppSelector((state) => state.modal.isModalOpen);
   const dispatch = useAppDispatch();
   const handleThemeChange = () => {
     const newTheme = currentTheme === "dark" ? "light" : "dark";
@@ -32,6 +37,7 @@ export default function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
+  const [modalType, setModalType] = React.useState<String | null>("location");
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -123,8 +129,33 @@ export default function Navbar() {
     </Menu>
   );
 
+  const fetchModalBody = () => {
+    switch (modalType) {
+      case "location":
+        return (
+          <>
+            <Autocomplete
+              disablePortal
+              id="combo-box-demo"
+              options={[
+                { label: "The Shawshank Redemption", year: 1994 },
+                { label: "The Godfather", year: 1972 },
+                { label: "The Godfather: Part II", year: 1974 },
+              ]}
+              sx={{ bgcolor: 'background.modal', color: "#ffffff" }}
+              renderInput={(params) => <TextField {...params} label="Movie" />}
+            />
+          </>
+        );
+        break;
+      default:
+        return <>Hey</>;
+    }
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
+      <BasicModal height="60%" width="70%" modalBody={() => fetchModalBody()} />
       <AppBar position="static">
         <Toolbar>
           <Tooltip
@@ -156,7 +187,15 @@ export default function Navbar() {
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }} className="mr-2">
             <Styled.DivWrapper>
-              <Button variant="outlined">Bangalore &nbsp;<KeyboardArrowDownIcon/></Button>
+              <Button
+                onClick={() => {
+                  dispatch(toggleModal(!isModalOpen));
+                  setModalType("location");
+                }}
+              >
+                Location &nbsp;
+                <KeyboardArrowDownIcon />
+              </Button>
             </Styled.DivWrapper>
           </Box>
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
@@ -174,8 +213,8 @@ export default function Navbar() {
           </Box>
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
+      {/* {renderMobileMenu}
+      {renderMenu} */}
     </Box>
   );
 }

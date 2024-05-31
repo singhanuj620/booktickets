@@ -20,7 +20,7 @@ export default function Home() {
       <h1 className="text-3xl font-bold underline">
         Hey
         <button onClick={() => dispatch(toggleModal(true))}>Open Modal</button>
-        <BasicModal modalTitle={"Modal Title"} modalBody={fetchModalBody} />
+        {/* <BasicModal modalTitle={"Modal Title"} modalBody={fetchModalBody} /> */}
       </h1>
     </div>
   );
